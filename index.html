@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Shahin 🌙💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- CORE STYLES --- */
+        body {
+            margin: 0; padding: 0; height: 100vh; overflow: hidden;
+            background: linear-gradient(to bottom, #1a0b2e, #4a148c, #ff69b4);
+            font-family: 'Poppins', sans-serif;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; color: white;
+            touch-action: none; /* Prevents zooming on double tap */
+        }
+
+        /* --- STARS --- */
+        .stars {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+            background-image: radial-gradient(white 1px, transparent 1px);
+            background-size: 40px 40px; opacity: 0.6; z-index: 0;
+        }
+
+        /* --- SCREEN LOGIC --- */
+        .screen {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+            padding: 20px; box-sizing: border-box; z-index: 10;
+        }
+        .active { opacity: 1; pointer-events: all; }
+
+        /* --- TEXT STYLES --- */
+        h1 {
+            font-family: 'Dancing Script', cursive; font-size: 2.8rem;
+            text-shadow: 0 0 10px #ff1493; margin-bottom: 15px; line-height: 1.2;
+        }
+        p { font-size: 1.1rem; line-height: 1.5; margin: 10px 0; }
+        .highlight { color: #ffd700; font-weight: bold; }
+
+        /* --- GENERIC BUTTON --- */
+        .btn {
+            background: white; color: #4a148c; border: none; padding: 12px 30px;
+            font-size: 1.1rem; border-radius: 50px; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); margin-top: 15px;
+            font-weight: bold; font-family: 'Poppins', sans-serif;
+        }
+
+        /* --- TRAVEL PRANK BUTTONS (FIXED) --- */
+        .btn-group {
+            width: 100%;
+            margin-top: 30px;
+            display: flex;               /* Use Flexbox */
+            flex-direction: row;         /* Side by Side */
+            justify-content: center;     /* Center them */
+            align-items: center;
+            gap: 15px;                   /* Space between buttons */
+            height: 100px;               /* Reserve space */
+            position: relative;
+        }
+
+        #yes-btn {
+            background: #2ecc71; color: white; z-index: 10;
+            padding: 12px 30px; border-radius: 50px; border: none; font-size: 1.2rem; font-weight: bold;
+        }
+
+        #no-btn {
+            background: #e74c3c; color: white;
+            padding: 12px 30px; border-radius: 50px; border: none; font-size: 1.2rem; font-weight: bold;
+            position: relative; /* Default state: Sitting nicely next to YES */
+            transition: all 0.1s ease; /* Smooth movement */
+        }
+
+        /* --- LETTER & OTHER ELEMENTS --- */
+        .envelope-container { font-size: 80px; animation: float 3s infinite ease-in-out; cursor: pointer; }
+        .letter-content {
+            background: white; color: #333; padding: 25px; border-radius: 15px;
+            max-width: 90%; transform: scale(0); transition: transform 0.4s;
+            position: absolute; z-index: 20; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .letter-show { transform: scale(1); }
+        
+        @keyframes float { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-15px);} }
+
+        /* --- FINAL CONFETTI --- */
+        .confetti { position: fixed; width: 10px; height: 10px; z-index: 100; pointer-events: none; }
+
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+    
+    <!-- Audio (Optional) -->
+    <audio id="bg-music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SCREEN 1: INTRO -->
+    <div id="screen-1" class="screen active">
+        <div style="font-size: 50px;">🌙 ✨</div>
+        <h1>Ramadan Mubarak<br>& Happy Birthday!</h1>
+        <p>Shahin, you were born in the month of light.</p>
+        <p>That makes you <span class="highlight">Allah's Favorite.</span></p>
+        <button class="btn" onclick="nextScreen(1)">Open Gift 🎁</button>
+    </div>
+
+    <!-- SCREEN 2: THE LETTER -->
+    <div id="screen-2" class="screen">
+        <h1>A Note for You... 💌</h1>
+        <p>Tap the envelope to read it.</p>
+        
+        <div class="envelope-container" onclick="openLetter()">📩</div>
+
+        <div class="letter-content" id="my-letter">
+            <h2 style="color:#d35400; font-family:'Dancing Script'; margin:0;">Dear Shahin,</h2>
+            <p style="font-size: 1rem; text-align: left; margin-top: 10px;">
+                In a world full of trends, you remain a classic. Your modesty is your crown, and your kindness is your superpower. 
+                <br><br>
+                May your heart always be at peace, and may your Duas be answered instantly. You are rare. You are precious.
+            </p>
+            <button class="btn" style="background: #d35400; color: white;" onclick="nextScreen(2)">Close & Continue</button>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: CAKE -->
+    <div id="screen-3" class="screen">
+        <h1>Make a Wish 🎂</h1>
+        <div style="font-size: 80px; margin: 30px; transition: 0.3s;" id="cake-icon" onclick="blowCandle()">🕯️</div>
+        <p>Tap the candle to blow it out!</p>
+    </div>
+
+    <!-- SCREEN 4: BALLOONS -->
+    <div id="screen-4" class="screen">
+        <h1>Pop 3 Balloons! 🎈</h1>
+        <p>For Good Luck & Happiness</p>
+    </div>
+
+    <!-- SCREEN 5: THE QUESTION (FIXED) -->
+    <div id="screen-5" class="screen">
+        <h1>One Last Question... ✈️</h1>
+        <p>Shahin, would you like to travel the world with me?</p>
+        
+        <div class="btn-group">
+            <button id="yes-btn" onclick="sayYes()">YES! 🌍</button>
+            <!-- No Button starts visible here -->
+            <button id="no-btn">NO ❌</button>
+        </div>
+    </div>
+
+    <!-- SCREEN 6: FINALE -->
+    <div id="screen-6" class="screen">
+        <h1>Alhamdulillah! 💍✈️</h1>
+        <p>I knew you would say Yes! 😉</p>
+        <p>Pack your bags, Beautiful. The world is waiting for us.</p>
+        <div style="font-size: 60px; margin-top: 20px;">🕋 🕌 💖</div>
+    </div>
+
+    <script>
+        // --- NAVIGATION ---
+        const music = document.getElementById('bg-music');
+        function nextScreen(current) {
+            if(current === 1) { try { music.play(); } catch(e) {} }
+            document.getElementById(`screen-${current}`).classList.remove('active');
+            document.getElementById(`screen-${current+1}`).classList.add('active');
+        }
+
+        // --- LETTER ---
+        function openLetter() {
+            document.querySelector('.envelope-container').style.display = 'none';
+            document.getElementById('my-letter').classList.add('letter-show');
+        }
+
+        // --- CAKE ---
+        function blowCandle() {
+            document.getElementById('cake-icon').innerText = "🎂";
+            setTimeout(() => { nextScreen(3); startBalloons(); }, 1000);
+        }
+
+        // --- BALLOONS ---
+        let popped = 0;
+        function startBalloons() {
+            const interval = setInterval(() => {
+                if(popped >= 3) {
+                    clearInterval(interval);
+                    setTimeout(() => nextScreen(4), 1000);
+                    return;
+                }
+                createBalloon();
+            }, 800);
+        }
+
+        function createBalloon() {
+            const b = document.createElement('div');
+            b.innerText = "🎈";
+            b.style.position = 'fixed';
+            b.style.bottom = '-50px';
+            b.style.left = Math.random() * 80 + 10 + 'vw';
+            b.style.fontSize = '60px';
+            b.style.transition = 'transform 5s linear';
+            b.style.zIndex = 100;
+            b.onclick = function() {
+                popped++;
+                b.innerText = "✨";
+                setTimeout(() => b.remove(), 200);
+            };
+            document.body.appendChild(b);
+            setTimeout(() => { b.style.transform = "translateY(-120vh)"; }, 50);
+        }
+
+        // --- THE PRANK (FIXED FOR MOBILE) ---
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+
+        function moveButton(e) {
+            if(e) e.preventDefault(); // Stop click from happening
+            
+            // 1. Get screen boundaries
+            const maxWidth = window.innerWidth - noBtn.offsetWidth - 20;
+            const maxHeight = window.innerHeight - noBtn.offsetHeight - 20;
+
+            // 2. Generate random position
+            const newX = Math.random() * maxWidth;
+            const newY = Math.random() * maxHeight;
+
+            // 3. Apply Fixed Position (Detaches from Flex layout)
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+            noBtn.style.zIndex = '1000'; // Ensure it's on top
+        }
+
+        // Add events for both Touch (Mobile) and Mouse (Laptop)
+        noBtn.addEventListener('touchstart', moveButton, {passive: false}); // Mobile tap
+        noBtn.addEventListener('mouseover', moveButton);  // Desktop hover
+        noBtn.addEventListener('click', moveButton);      // Desktop click
+
+        function sayYes() {
+            nextScreen(5);
+            startConfetti();
+        }
+
+        function startConfetti() {
+            for(let i=0; i<50; i++) {
+                const c = document.createElement('div');
+                c.classList.add('confetti');
+                c.style.background = ['gold', 'pink', 'white'][Math.floor(Math.random()*3)];
+                c.style.left = Math.random()*100+'vw';
+                c.style.top = '-10px';
+                document.body.appendChild(c);
+                c.animate([
+                    {transform: 'translateY(0)', opacity: 1}, 
+                    {transform: `translateY(100vh) rotate(${Math.random()*360}deg)`, opacity:0}
+                ], { duration: 2000 + Math.random()*2000 });
+            }
+        }
+    </script>
+</body>
+</html>
